@@ -863,11 +863,11 @@
         </div>
         <div class="nav-links">
             <div class="divider"></div>
-            <a href="#block-1">FEATURES</a>
+            <a href="#block-1">FEATURES</a>            
             <div class="divider"></div>
-            <a href="#block-9">UMFRAGE</a>
+            <a href="#block-9">UMFRAGE</a>            
             <div class="divider"></div>
-            <a href="https://dsidigital.github.io/honeypex.mehr.html">MEHR</a>        
+            <a href="https://dsidigital.github.io/honeypex.mehr/">MEHR</a>        
         </div>
     </header>
 
@@ -1030,11 +1030,11 @@
 
             <div class="navbar-umfrage">
                 <div class="nav-links-umfrage">
-                    <a href="https://dsidigital.github.io/honeypex.kontakt.html">KONTAKT</a>                    
+                    <a href="https://dsidigital.github.io/honeypex.kontakt/">KONTAKT</a>                    
                     <div class="divider-umfrage"></div>
-                    <a href="https://dsidigital.github.io/honeypex.kontakt.html#datenschutz">DATENSCHUTZ</a>                    
+                    <a href="https://dsidigital.github.io/honeypex.kontakt/#datenschutz">DATENSCHUTZ</a>                    
                     <div class="divider-umfrage"></div>
-                    <a href="https://dsidigital.github.io/honeypex.kontakt.html#impressum">IMPRESSUM</a>
+                    <a href="https://dsidigital.github.io/honeypex.kontakt/#impressum">IMPRESSUM</a>                
                 </div>
             </div>
         </section>
@@ -1043,20 +1043,36 @@
 </div>
 
     <script>
-        // Scroll al top al cargar
+        // Scroll al top al cargar (solo si no hay hash)
         window.onbeforeunload = function () { window.scrollTo(0, 0); };
-        window.onload = function () {
+        function scrollToHash() {
             const container = document.querySelector('.ppt-container');
-            if (container) container.scrollTop = 0;
-            window.scrollTo(0, 0);
-        };
+            if (!container) return;
+
+            const hash = window.location.hash;
+            if (!hash) {
+                container.scrollTop = 0;
+                window.scrollTo(0, 0);
+                return;
+            }
+
+            const target = document.querySelector(hash);
+            if (target) {
+                container.scrollTo({ top: target.offsetTop, behavior: 'auto' });
+            }
+        }
+        window.addEventListener('load', scrollToHash);
+        window.addEventListener('hashchange', scrollToHash);
         if (history.scrollRestoration) history.scrollRestoration = 'manual';
 
         // Navegación
         document.querySelectorAll('.nav-links a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || !href.startsWith('#')) return;
+
                 e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
+                const targetId = href.substring(1);
                 const targetSection = document.getElementById(targetId);
                 const container = document.querySelector('.ppt-container');
                 if (targetSection && container) {

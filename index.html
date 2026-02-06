@@ -80,7 +80,7 @@
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
             position: relative;
-            z-index: 1;
+            /* z-index: 1; */
             scrollbar-width:auto;
             scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
         }
@@ -182,19 +182,22 @@
             z-index: 1000;
             border: 1px solid #333;
             width: 60vw;
-            max-width: 36vw;
+            max-width: 60vw;
             min-width: 18rem;
             box-sizing: border-box;
             opacity: 0;
             visibility: hidden;
+            -webkit-transition: opacity 0.5s ease-in-out, visibility 0.5s, -webkit-transform 0.5s, transform 0.5s;
             transition: opacity 0.5s ease-in-out, visibility 0.5s, transform 0.5s;
             /* desplazado hacia abajo cuando oculto */
+            -webkit-transform: translate(-50%, 24px);
             transform: translate(-50%, 24px);
         }
 
         .navbar-umfrage.visible {
             opacity: 1;
             visibility: visible;
+            -webkit-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
         }
 
@@ -223,7 +226,8 @@
 
         .navbar-umfrage .divider-umfrage {
             display: block;
-            width: 0.12em;
+            width: 1px;
+            min-width: 1px;
             height: 3vh;
             background-color: var(--neon-blue);
             opacity: 1;
@@ -502,19 +506,22 @@
 
             .navbar-umfrage {
                 width: 70%;
+                max-width: 70%;
                 padding: 1vh 2vw;
             }
             
             .divider {
                 display: block;
                 width: 1px;
+                min-width: 1px;
                 height: 3vh;
                 background-color: #0044ff;
             }
 
-            .divider-umfrage {
+            .navbar-umfrage .divider-umfrage {
                 display: block;
                 width: 1px;
+                min-width: 1px;
                 height: 2.5vh;
                 background-color: #0044ff;
             }
@@ -577,8 +584,15 @@
             .divider {
                 display: block;
                 width: 1px;
+                min-width: 1px;
                 height: 3vh;
                 background-color: #0044ff;
+            }
+
+            .navbar-umfrage .divider-umfrage {
+                width: 1px;
+                min-width: 1px;
+                height: 2.5vh;
             }
 
             .logo-nav {
@@ -795,6 +809,11 @@
 
             .navbar-umfrage {
                 max-width: 1200px;
+            }
+
+            .navbar-umfrage .divider-umfrage {
+                width: 1px;
+                min-width: 1px;
             }
 
             .main-logo-fixed {
